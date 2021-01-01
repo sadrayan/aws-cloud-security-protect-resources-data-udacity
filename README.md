@@ -34,7 +34,7 @@ In this task, the objective is to familiarize yourself with the starting archite
  
 The diagram file, title `AWS-WebServiceDiagram-v1-insecure.png`, can be found in the _starter_ directory in this repo.
  
-![base environment](AWS-WebServiceDiagram-v1-insecure.png)
+![base environment](screenshots/AWS-WebServiceDiagram-v1-insecure.png)
  
 #### Expected user flow:
 - Clients will invoke a public-facing web service to pull free recipes.  
@@ -68,7 +68,7 @@ Additionally, we have provided a CloudFormation template which will deploy the f
 ### Task 3: Deployment of Initial Infrastructure
 In this task, the objective is to deploy the CloudFormation stacks that will create the below environment.
  
-![base environment](AWS-WebServiceDiagram-v1-insecure.png)
+![base environment](screenshots/AWS-WebServiceDiagram-v1-insecure.png)
  
  
 We will utilize the AWS CLI in this guide, however you are welcome to use the AWS console to deploy the CloudFormation templates.
@@ -78,7 +78,7 @@ We will utilize the AWS CLI in this guide, however you are welcome to use the AW
  
 ##### Deploy the S3 buckets
 ```
-aws cloudformation create-stack --region us-east-1 --stack-name c3-s3 --template-body file://starter/c3-s3.yml
+aws cloudformation create-stack --region us-east-1 --stack-name c3-s3 --template-body file://infrastructure/c3-s3.yml
 ```
  
 Expected example output:
@@ -89,7 +89,7 @@ Expected example output:
 ```
 ##### Deploy the VPC and Subnets
 ```
-aws cloudformation create-stack --region us-east-1 --stack-name c3-vpc --template-body file://starter/c3-vpc.yml
+aws cloudformation create-stack --region us-east-1 --stack-name c3-vpc --template-body file://infrastructure/c3-vpc.yml
 ```
  
 Expected example output:
@@ -102,7 +102,7 @@ Expected example output:
 ##### Deploy the Application Stack 
 You will need to specify a pre-existing key-pair name.
 ```
-aws cloudformation create-stack --region us-east-1 --stack-name c3-app --template-body file://starter/c3-app.yml --parameters ParameterKey=KeyPair,ParameterValue=<add your key pair name here> --capabilities CAPABILITY_IAM
+aws cloudformation create-stack --region us-east-1 --stack-name c3-app --template-body file://infrastructure/c3-app.yml --parameters ParameterKey=KeyPair,ParameterValue=my-ec2-kp --capabilities CAPABILITY_IAM
 ```
  
 Expected example output:
@@ -115,13 +115,13 @@ Expected example output:
 Expected example AWS Console status: 
 https://console.aws.amazon.com/cloudformation/home?region=us-east-1#/stacks
  
-![Expected AWS Console Status](cloudformation_status.png)
+![Expected AWS Console Status](screenshots/cloudformation_status.png)
  
 #### 2. Once you see Status is CREATE_COMPLETE for all 3 stacks, obtain the required parameters needed for the project.
  
 Obtain the name of the S3 bucket by navigating to the Outputs section of the stack:
  
-![Outputs Section](s3stack_output.png)
+![Outputs Section](screenshots/s3stack_output.png)
  
 Note down the names of the two other buckets that have been created, one for free recipes and one for secret recipes.  You will need the bucket names to upload example recipe data to the buckets and to run the attack scripts.
  
@@ -131,7 +131,7 @@ Note down the names of the two other buckets that have been created, one for fre
  
 You can get these from the Outputs section of the **c3-app** stack.
  
-![Outputs](outputs.png)
+![Outputs](screenshots/outputs.png)
  
 #### 3.  Upload data to S3 buckets
 Upload the free recipes to the free recipe S3 bucket from step 2. Do this by typing this command into the console (you will replace `<BucketNameRecipesFree>` with your bucket name):
@@ -178,7 +178,7 @@ First, we will set up security monitoring to ensure that the AWS account and env
  
 #### 1. Enable AWS Config (skip this step if you already have it enabled)  
  a. See below screenshot for the initial settings.   
- ![ConfigEnabled](config_enable.png)  
+ ![ConfigEnabled](screenshots/config_enable.png)  
  b. On the Rules page, click **Skip**.  
  c. On the Review page, click **Confirm**.
 #### 2. Enable AWS Security Hub
@@ -186,12 +186,12 @@ First, we will set up security monitoring to ensure that the AWS account and env
 b. On the next page, click **Enable Security Hub**
 #### 3. Enable AWS Inspector scan
  a. From the Inspector service landing page, leave the defaults and click **Advanced**.  
- ![Inspector1](inspector_setup_runonce.png)  
+ ![Inspector1](screenshots/inspector_setup_runonce.png)  
  b. Uncheck **All Instances** and **Install Agents**.  
  c. Choose Name for Key and ‘Web Services Instance - C3’ for value, click **Next**.  
- ![Inspector2](inspector_setup_2.png)  
+ ![Inspector2](screenshots/inspector_setup_2.png)  
  d. Edit the rules packages as seen in the screenshot below.  
- ![Inspector3](inspector_setup_3.png)  
+ ![Inspector3](screenshots/inspector_setup_3.png)  
  e. Uncheck **Assessment Schedule**.  
  f. Set a duration of 15 minutes.
  g. Click **Next** and **Create**.
@@ -243,7 +243,7 @@ hydra -l ubuntu -P rockyou.txt ssh://<YourApplicationServerDnsNameHere>
  
 You should see output similar to the following:
 		
-![Brute Force](brute_force.png)
+![Brute Force](screenshots/brute_force.png)
  
 Wait 10 - 15 minutes and check AWS Guard Duty.
  
@@ -413,7 +413,7 @@ Brainstorm and list additional hardening suggestions aside from those implemente
 
 Take a look at a very common deployment pipeline diagrammed below:
 
-![DevOpsPipeline](DevOpsPipeline.png)
+![DevOpsPipeline](screenshots/DevOpsPipeline.png)
 
 The high-level steps are as follows:
 
