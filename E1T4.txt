@@ -1,0 +1,9 @@
+Based on the architecture diagram, and the steps you have taken so far to upload data and access the application web service, identify at least 2 obvious poor practices as it relates to security.  Include justification.
+
+# Poor practice 1
+Attack simulation instances is clearly open to public throup ssh in untrusted public subnet. 
+This leaves the instance volunrable to attacks.
+
+# Poor practice 2
+Attack simulation instance is using API credentials, which can be stolen to access unauthorized resources. 
+Generally, API credentials should be repaced by roles for more security on the resources.

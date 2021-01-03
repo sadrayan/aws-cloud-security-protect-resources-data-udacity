@@ -1,3 +1,29 @@
 Research and analyze which of the vulnerabilities appear to be related to the code that was deployed for the environment in this project.
 
 Bonus - provide recommendations on how to remediate the vulnerabilities.
+
+These issues are result of running AWS Config.
+
+EC2:
+securityhub-ec2-instance-managed-by-ssm-edebbab5 (Checks whether the Amazon EC2 instances in your account are managed by AWS Systems Manager.)
+
+For all 3 S3 buckets:
+securityhub-s3-bucket-replication-enabled-abc5a118 (Checks whether S3 buckets have cross-region replication enabled.)
+securityhub-s3-bucket-ssl-requests-only-0eb5dcc8 (Checks whether S3 buckets have policies that require requests to use Secure Socket Layer (SSL).)
+securityhub-s3-bucket-server-side-encryption-enabled-10073f6a (Checks that your Amazon S3 bucket either has Amazon S3 default encryption enabled or that the S3 bucket policy explicitly denies put-object requests without server side encryption.)
+securityhub-s3-bucket-logging-enabled-a6b5d203 (Checks whether logging is enabled for your S3 buckets.)
+
+******************************************************************************************************************
+
+These issues are result of running security hub service with High severity. 
+
+On instance i-0b32b86dbeefcf333, TCP port 23 which is associated with 'Telnet' is reachable from the internet
+On instance i-0b32b86dbeefcf333, UDP port 20 which is associated with 'FTP' is reachable from the internet
+On instance i-0b32b86dbeefcf333, UDP port 21 which is associated with 'FTP' is reachable from the internet
+On instance i-0b32b86dbeefcf333, TCP port 21 which is associated with 'FTP' is reachable from the internet
+On instance i-0b32b86dbeefcf333, TCP port 20 which is associated with 'FTP' is reachable from the internet
+On instance i-0b32b86dbeefcf333, UDP port 23 which is associated with 'Telnet' is reachable from the internet
+
+Based on the recommendations from AWS Inspector, we can do the following to resovle the issues:  
+
+You can edit the Security Group sg-0aa74e5fa48592d0d to remove access from the internet on port 20, 21, 23

@@ -1,3 +1,13 @@
 # Describe GuardDuty findings that were detected related to the brute force attack
 
+Brute force attack can occur when a security group leaves SSH connections from all sources (0.0.0.0/0) over Port Range 22. 
+Allowing 0.0.0.0/0 over Port Range 22 introduces a security risk.
+
+Best practice is to configure security groups to allow SSH access only from specific trusted sources, such as from bastion hosts (or secure local machine).
+
+
 # Research the AWS Guard Duty documentation page and explain how GuardDuty may have detected this attack - i.e. what was its source of information.
+
+AWS GuardDuty provides monitors and analysze VPC Flow Logs, CloudTrail logs, and DNS logs to detect anomolies, such as rapid rate of login attempts. 
+GuardDuty reports when an EC2 instance has been targeted in a Secure Shell (SSH) brute force attack. 
+If the attacker was successful in determining the password, then the instance may be compromised.

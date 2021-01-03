@@ -1,5 +1,13 @@
-
-
 # Identify 2-3 changes that can be made to our environment to prevent an ssh brute force attack from the internet.
 
+1- Update security groups associated with the instance to only allow secure ssh connection from known secure ip address (Bastion host, or secure local machine)
+2- On application server instances, disable SSH password login 
+3- Manage instances through AWS System Manager, no need to ssh directly to the instances
+4- Always use Roles, and not API Keys.
+
 # Neither instance should have had access to the secret recipes bucket, in the even that instance API credentials were compromised how could we have prevented access to sensitive data.
+
+
+1- Secure secret S3 buck with Server-Side Encrycption. This approach was also recommended by running AWS Config. Default encryption will encrypte S3 bucket contents, so even at event of breach, data will be encrypted
+
+2- Applying Least Privilage Access to the IAM roles. We can see that the "InstanceRolePolicy-C3" defined in c3-app.yml gives full access to the s3. This should be reduced to only Get operations, so insance can only read to serve the file (or remove complete access as needed)
