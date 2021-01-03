@@ -1,13 +1,27 @@
 # Identify tools that will allow you to do the following:
 
 ## Scan infrastructure as code templates
+    - Regula
+    - TFLint
+    - Terrafirma
 
 ### Example vulnerability
+Regula iam_admin_policy	ensures that IAM policies should not have full ":" administrative privileges
+Regula s3_bucket_sse ensures Server Side Encryption (SSE) by default should be set for S3 buckets
 
 ##Scan AMI’s or containers for OS vulnerabilities
+    - trivy
+    - Aqua Security
+    - Anchore Container Image Scanner
 
 ### Example vulnerability
+Prevent unauthorized images by ontinuously scan images to ensure changes do not introduce vulnerabilities, bad configurations, or secrets into container images
 
 ##Scan an AWS environment for cloud configuration vulnerabilities
+    - AWS Config
+    - AWS Security Hub
 
 ### Example vulnerability
+
+AWS Config can detect risks like S3 default encryption, and use of SSM for managing instances.
+AWS Security Hub can detect risks in Security Groups, where too much is exposed (i.e 22 port to internet)
