@@ -32,8 +32,8 @@ Resources:
             Version: 2012-10-17
             Statement:
               - Effect: Allow
-                Action: 's3:*'
-                Resource: '*'
+                Action: ["s3:GetObject","s3:GetObjectVersion"]
+                Resource: !Join [ "", ["arn:aws:s3:::", !Join [ "-", [ "cand-c3-free-recipes", !Ref 'AWS::AccountId' ] ] ]]
 
   InstanceProfileRole:
     Type: AWS::IAM::InstanceProfile
@@ -51,19 +51,9 @@ Resources:
       - IpProtocol: -1
         CidrIp: 0.0.0.0/0
       SecurityGroupIngress:
-      - IpProtocol: -1
-        CidrIp: 0.0.0.0/0
-      - IpProtocol: tcp
-        FromPort: 22
-        ToPort: 22
-        CidrIp: 0.0.0.0/0
       - IpProtocol: tcp
         FromPort: 5000
         ToPort: 5000
-        CidrIp: 0.0.0.0/0
-      - IpProtocol: tcp
-        FromPort: 80
-        ToPort: 80
         CidrIp: 0.0.0.0/0
       VpcId: !ImportValue VpcId
 
@@ -184,4 +174,3 @@ Outputs:
     Value: !GetAtt RecipeWebServiceInstance.PublicDnsName
   ApplicationURL:
     Value: !GetAtt AppLoadBalancer.DNSName
-    
